@@ -185,6 +185,8 @@ sudo /usr/local/bin/pip3.7 install openshift
 
 - run the operator
 ```
+cd memcached-operator
+
 operator-sdk up local
 ```
 Nota: este método requiere que todo vaya muy funo entre pip, python 3.7 y ansible-runner
