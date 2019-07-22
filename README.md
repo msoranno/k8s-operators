@@ -191,6 +191,7 @@ operator-sdk up local
 ```
 Nota: este método requiere que todo vaya muy funo entre pip, python 3.7 y ansible-runner
 
+
 #### Ejecutar el operador como pod
 
 - create and setup a quay.io account
@@ -235,4 +236,14 @@ kubectl create -f deploy/role.yaml
 kubectl create -f deploy/role_binding.yaml
 kubectl create -f deploy/operator.yaml
 ```
-NOTA: Al desplegar el operador como POD no termina de funcionar.
+
+#### Crear un custom resource
+
+Da igual como se esté ejecutando el operador, si como POD o con el operator-sdk , el comportamiento debería ser el mismo.
+
+```
+kubeclt create -f ./deploy/crds/cache_v1alpha1_memcached_cr.yaml
+
+```
+
+Se puede observar que al crearse el CR el operador crea 3 replicas del Memchaed usando ansible.
