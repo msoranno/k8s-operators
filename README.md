@@ -1,4 +1,4 @@
-# Kubernetes operators
+# Kubernetes operators (Ansible)
 
 ## Operator SDK by redhat
 
@@ -49,7 +49,7 @@ Esto genera esta estructura de directorio:
 ├── memcached-operator
 │   ├── build
 │   │   ├── Dockerfile
-│   │   └── test-framework
+│   │   └── test-framewo rk
 │   │       ├── ansible-test.sh
 │   │       └── Dockerfile
 │   ├── deploy
