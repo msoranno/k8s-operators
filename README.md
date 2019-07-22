@@ -165,10 +165,21 @@ NAME                           CREATED AT
 memcacheds.cache.example.com   2019-07-20T19:08:12Z
 
 ```
+
+- RBAC setup
+
+```
+kubectl create -f deploy/service_account.yaml
+kubectl create -f deploy/role.yaml
+kubectl create -f deploy/role_binding.yaml
+
+```
+
 - there are two ways to run the operator. Una es como POD y la otra es usando el utilitario:
 
 	- As a pod inside a Kubernetes cluster (es mas para producción)
 	- As a go program outside the cluster using operator-sdk (mas usado durante el proceso de desarrollo)
+
 
 #### Ejecutar el operator con el utilitario operator-sdk
 
@@ -183,6 +194,16 @@ sudo /usr/local/bin/pip3.7 install openshift
 ```
 - update the role path on the watches file. (must be absolute path)
 
+```
+---
+- version: v1alpha1
+  group: cache.example.com
+  kind: Memcached
+  #role: /opt/ansible/roles/memcached
+  role: /home/sp81891/myutils/operator-sdk/memcached-operator/roles/memcached
+```
+
+
 - run the operator
 ```
 cd memcached-operator
@@ -190,6 +211,7 @@ cd memcached-operator
 operator-sdk up local
 ```
 Nota: este método requiere que todo vaya muy funo entre pip, python 3.7 y ansible-runner
+
 
 
 #### Ejecutar el operador como pod
@@ -231,13 +253,10 @@ sed -i 's|{{ pull_policy\|default('\''Always'\'') }}|Always|g' deploy/operator.y
 - Deploy the memcached-operator:
 
 ```
-kubectl create -f deploy/service_account.yaml
-kubectl create -f deploy/role.yaml
-kubectl create -f deploy/role_binding.yaml
 kubectl create -f deploy/operator.yaml
 ```
 
-#### Crear un custom resource
+#### Crear un custom resource (aplica ambos métodos)
 
 Da igual como se esté ejecutando el operador, si como POD o con el operator-sdk , el comportamiento debería ser el mismo.
 
