@@ -183,15 +183,6 @@ kubectl create -f deploy/role_binding.yaml
 
 #### Ejecutar el operator con el utilitario operator-sdk
 
-- install ansible-runner, ansible-runner-http , openshift module (used by ansible)
-```
-sudo /usr/local/bin/pip3.7 install --upgrade pip
-sudo /usr/local/bin/pip3.7 install ansible-runner
-sudo /usr/local/bin/pip3.7 install ansible-runner-http
-sudo /usr/local/bin/pip3.7 install openshift
-
-# Note: es importante tener python 3.7 respondinedo al python
-```
 - update the role path on the watches file. (must be absolute path)
 
 ```
@@ -203,15 +194,41 @@ sudo /usr/local/bin/pip3.7 install openshift
   role: /home/sp81891/myutils/operator-sdk/memcached-operator/roles/memcached
 ```
 
+- install ansible-runner, ansible-runner-http , openshift module (used by ansible)
+
+> Note: es importante tener python 2.7 respondinedo al python.
+> Nota2: con la versión de python 2.7 funciona pero siempre da mensajes de error **did not receive playbook_on_stats event** y tiene exceso de logs de ansible.
+
+
+Utilizarmeos pyenv para crear un entorno virtual con la versión 3.7.4 de python y así poder usar una versión mas actualizada de todos los componentes. Previamente hemos instalado la versión 3.7.4 de python usando pyenv. Documentación de pyenv aqui: -> 
+
+```
+cd myutils/operator-sdk/memcached-operator/
+
+# crea el entorno virtual
+pyenv virtualenv 3.7.4 operator
+
+# lo activamos
+pyenv local operator
+
+pip install --upgrade pip
+pip install ansible-runner
+pip ansible-runner-http
+pip install openshift
+
+# lo desactivamos
+pyenv local system
+```
 
 - run the operator
+
 ```
 cd memcached-operator
 
+pyenv local operator
+
 operator-sdk up local
 ```
-Nota: este método requiere que todo vaya muy funo entre pip, python 3.7 y ansible-runner
-
 
 
 #### Ejecutar el operador como pod
