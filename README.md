@@ -197,10 +197,11 @@ kubectl create -f deploy/role_binding.yaml
 - install ansible-runner, ansible-runner-http , openshift module (used by ansible)
 
 > Note: es importante tener python 2.7 respondinedo al python.
+
 > Nota2: con la versión de python 2.7 funciona pero siempre da mensajes de error **did not receive playbook_on_stats event** y tiene exceso de logs de ansible.
 
 
-Utilizarmeos pyenv para crear un entorno virtual con la versión 3.7.4 de python y así poder usar una versión mas actualizada de todos los componentes. Previamente hemos instalado la versión 3.7.4 de python usando pyenv. Documentación de pyenv aqui: -> 
+> Utilizarmeos pyenv para crear un entorno virtual con la versión 3.7.4 de python y así poder usar una versión mas actualizada de todos los componentes. Previamente hemos instalado la versión 3.7.4 de python usando pyenv. Documentación de pyenv aqui: -> https://github.com/msoranno/pyenv/blob/master/README.md
 
 ```
 cd myutils/operator-sdk/memcached-operator/
